@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="230px" height="236px" viewBox="0 0 230 236" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Mountains</title>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#0E0B09" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#0E0B09" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Welcome-WatchOS" transform="translate(22, -51)">
+            <g id="Mountains" transform="translate(-22, 51)">
+                <polygon id="Path" fill="#2A211A" points="0 224.848168 0 132.570681 40.0497512 89.5078534 62.9353234 114.115183 114.427861 15.6858639 143.034826 58.7486911 168.781095 40.2931937 230 114.115183 230 224.848168"></polygon>
+                <polygon id="Path" fill="#D4A86A" points="0 219.848168 0 170.633508 51.4925373 127.570681 91.5422886 158.329843 148.756219 90.6596859 188.80597 139.874346 217.412935 121.418848 230 146.026178 230 219.848168"></polygon>
+                <path d="M72.3283582,235.39267 C106.656716,216.937173 123.820896,192.329843 158.149254,189.253927 C192.477612,186.17801 209.641791,161.570681 215.363184,130.811518" id="Path" stroke="#FFF3DC" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2,2"></path>
+                <ellipse id="Oval" stroke="#B79AD6" stroke-width="3" fill="#0E0B09" cx="215.363184" cy="130.811518" rx="5.14925373" ry="5.53664921"></ellipse>
+                <line x1="114.427861" y1="19.6858639" x2="114.427861" y2="0" id="Path" stroke="#F3E9DA" stroke-width="2" fill="#000000"></line>
+                <polygon id="Path" fill="#8E6AA8" points="114.427861 0 130.447761 4.92146597 114.427861 9.84293194"></polygon>
+                <rect id="Rectangle" fill="url(#linearGradient-1)" x="0" y="167.329843" width="230" height="67.6701571"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
