@@ -66,7 +66,7 @@ struct PageDots: View {
     let current: Int   // starts at 0
 
     var body: some View {
-        HStack(spacing: 6) {
+        /*HStack(spacing: 6) {
             ForEach(0..<count, id: \.self) { index in
                 Capsule()
                     .fill(index == current ? Color.qGold : Color.qDot)
@@ -74,7 +74,7 @@ struct PageDots: View {
             }
         }
         .accessibilityElement()
-        .accessibilityLabel("Page \(current + 1) of \(count)")
+        .accessibilityLabel("Page \(current + 1) of \(count)")*/
     }
 }
 
@@ -108,13 +108,13 @@ struct HowItWorksView: View {
             VStack(spacing: 16) {
                 PageDots(count: 3, current: 1)
 
-                Button(action: onNext) {
+               /* Button(action: onNext) {
                     Text("Next")
                         .font(.headline)
                         .foregroundStyle(Color.qBackground)
                         .frame(maxWidth: .infinity, minHeight: 56)
                         .background(Color.qGold, in: Capsule())
-                }
+                }*/
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 8)
