@@ -2,7 +2,7 @@ import SwiftUI
 
 // MARK: - الشاشة الرئيسية (الخريطة)
 
-struct ContentView: View {
+struct JourneyMap: View {
     var level = 2
     var xp = XPProgress(current: 380, total: 1000)
 
@@ -254,5 +254,5 @@ struct ContourLines: View {
 }
 
 #Preview {
-    ContentView()
+    JourneyMap()
 }
