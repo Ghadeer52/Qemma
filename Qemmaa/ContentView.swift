@@ -6,16 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
+    @StateObject private var connectivity = PhoneConnectivityManager()
+    @State private var plan = WorkoutPlan(repsPerSet: [10, 9, 8])
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        PlanEditorView(plan: $plan) { connectivity.send(plan: plan) }
+            .onReceive(connectivity.$suggestedPlan.compactMap { $0 }) { plan = $0 }
     }
 }
 
