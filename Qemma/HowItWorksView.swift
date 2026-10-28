@@ -92,6 +92,16 @@ struct HowItWorksView: View {
                     .font(.subheadline)
                     .foregroundStyle(Color.qMuted)
 
+                // Character banner
+                    Image("trainup")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 130)
+                        .padding(.top, 16)
+                        .accessibilityHidden(true) 
+                
+                
                 VStack(spacing: 16) {
                     ForEach(Step.all) { step in
                         StepCard(step: step)

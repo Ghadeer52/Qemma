@@ -10,15 +10,17 @@ import SwiftUI
 
     var body: some Scene {
         WindowGroup {
-
-           // JourneyMap()
-
-            if hasSeenOnboarding {
-                Text("Home")   // replace with your HomeView()
-            } else {
-                OnboardingPagerView()
+            Group {
+                
+                if hasSeenOnboarding {
+                    JourneyMap()
+                        .transition(.opacity)
+                } else {
+                    OnboardingPagerView()
+                        .transition(.opacity)
+                }
             }
-
+            .animation(.easeInOut(duration: 0.4), value: hasSeenOnboarding)
         }
     }
 }

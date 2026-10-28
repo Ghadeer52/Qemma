@@ -5,6 +5,10 @@ import SwiftUI
 struct JourneyMap: View {
     var level = 2
     var xp = XPProgress(current: 380, total: 1000)
+    
+    /*@StateObject private var connectivity = PhoneConnectivityManager()
+    @State private var plan = WorkoutPlan(repsPerSet: [10, 9, 8])
+    @State private var showPlanEditor = false*/
 
     var body: some View {
         ZStack {
@@ -21,7 +25,16 @@ struct JourneyMap: View {
                 startButton
             }
             .padding(.horizontal, 24)
+            
+        }/*.sheet(isPresented: $showPlanEditor) {
+            PlanEditorView(
+                plan: $plan,
+                onStart: { connectivity.startOnWatch(plan: plan) },
+                status: connectivity.status
+            )
         }
+        // After a workout, the Watch suggests the next goal.
+        .onReceive(connectivity.$suggestedPlan.compactMap { $0 }) { plan = $0 }*/
     }
 
     private var header: some View {
@@ -43,20 +56,21 @@ struct JourneyMap: View {
             }
 
             XPBar(fraction: xp.fraction)
-        }
+        }.padding(.horizontal, 20)
     }
 
     private var startButton: some View {
         Button {
-            // بدء التمرين
+            //showPlanEditor = true
         } label: {
             Text("Start Workout")
-                .font(.system(size: 18))
+                .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(Color.qBackground)
                 .frame(maxWidth: .infinity)
-                .frame(height: 56)
+                .frame(height: 52)
                 .background(Color.qGold, in: Capsule())
-        }
+                
+        }.padding(.horizontal, 20).padding(.bottom, 40)
     }
 }
 
@@ -103,7 +117,7 @@ struct ClimbMap: View {
 
                 if let side = node.labelSide {
                     MapCaption(stage: node.stage, alignsRight: side == .right)
-                        .position(x: node.point.x + (side == .right ? 108 : -108),
+                        .position(x: node.point.x + (side == .right ? 116 : -116),
                                   y: node.point.y)
                         .allowsHitTesting(false)
                 }
@@ -173,13 +187,22 @@ struct StageMarker: View {
 
         case .current:
             ZStack {
-                Circle()
+                /*Circle()
                     .fill(Color.qVioletDeep.opacity(0.6))      // التوهج
                     .frame(width: 52, height: 52)
                 Circle()
                     .fill(Color.qBackground)
                     .overlay(Circle().stroke(Color.qViolet, lineWidth: 4))
-                    .frame(width: 30, height: 30)
+                    .frame(width: 30, height: 30)*/
+                
+                Circle().fill(Color.qVioletDeep.opacity(0.4))      // glow stays
+                            .frame(width: 50, height: 68)
+
+                        Image("risehands")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 56) // height follows the SVG ratio (~46)
+                            .accessibilityHidden(true)
             }
 
         case .locked:

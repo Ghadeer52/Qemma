@@ -54,7 +54,7 @@ struct SetWeightView: View {
                 Button {
                     onContinue(selection ?? 10)
                 } label: {
-                    Text("Continue")
+                    Text("Set")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundStyle(WeightPalette.background)
                         .frame(maxWidth: .infinity)

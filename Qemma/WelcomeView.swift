@@ -109,6 +109,19 @@ private struct WelcomeMountainIllustration: View {
                 }
                 .fill(Color.welcomeFarMountain)
 
+                
+                // Character standing on the gold peak
+                let charWidth: CGFloat = 76 * sx
+                let charHeight = charWidth * 528 / 560          // keeps the SVG's aspect ratio
+                let feetY: CGFloat = 242                         // peak height on the 335x415 canvas
+                let feetX: CGFloat = 220                         // peak position on the canvas
+
+                Image("climp")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: charWidth, height: charHeight)
+                    .position(x: feetX * sx,
+                              y: feetY * sy - charHeight * 0.405)   // puts the feet on the peak
                 // Near (gold) mountains
                 Path { path in
                     path.move(to: p(0, 350))
@@ -140,7 +153,7 @@ private struct WelcomeMountainIllustration: View {
                 .fill(Color.welcomeGold)
 
                 // Dotted route
-                Path { path in
+               Path { path in
                     path.move(to: p(50, 392))
                     path.addCurve(to: p(135, 330),
                                   control1: p(80, 360),
