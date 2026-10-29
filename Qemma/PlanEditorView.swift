@@ -3,13 +3,22 @@ import SwiftUI
 /// "Start workout" screen on the iPhone. The user edits weight, rest and the reps of EACH set
 /// (for example 10, 9, 8) and then sends the plan to the Watch.
 /// Needs: Colors.swift + the color assets in the iPhone target, and PhoneConnectivityManager.
+///
+/// WEIGHT: the "Weight" row below the exercise card is also where the starting weight is saved.
+///  - Onboarding "Set" button  -> writes "startingWeightKg" -> this screen shows it when it opens.
+///  - User tapped "Skip"       -> nothing was written (default 10) -> user sets it here.
+///  - Any change of the weight -> written back to "startingWeightKg".
 /* struct PlanEditorView: View {
     @Binding var plan: WorkoutPlan
     var onStart: () -> Void = {}
     var status: String = ""
 
+    // Same key that SetWeightView saves through OnboardingPagerView.
+    @AppStorage("startingWeightKg") private var savedWeightKg = 10
+
     private let maxSets = 8
     private let maxReps = 30
+    private let maxWeight = 100.0   // same maximum as the SetWeightView wheel
 
     var body: some View {
         ScrollView {
@@ -22,7 +31,7 @@ import SwiftUI
 
                 StepperRow(label: "Weight", value: "\(Int(plan.weightKg.rounded())) kg",
                            onMinus: { plan.weightKg = max(1, plan.weightKg - 1) },
-                           onPlus: { plan.weightKg += 1 })
+                           onPlus: { plan.weightKg = min(maxWeight, plan.weightKg + 1) })
 
                 StepperRow(label: "Rest time", value: restText,
                            onMinus: { plan.restSeconds = max(15, plan.restSeconds - 15) },
@@ -71,6 +80,14 @@ import SwiftUI
             }
             .padding(.bottom, 8)
             .background(Color.qBackground)
+        }
+        // Load the weight chosen in onboarding (SetWeightView) when the editor opens.
+        .onAppear {
+            plan.weightKg = Double(savedWeightKg)
+        }
+        // Save every weight change, so skipped users can set their weight here.
+        .onChange(of: plan.weightKg) { _, newValue in
+            savedWeightKg = Int(newValue.rounded())
         }
     }
 

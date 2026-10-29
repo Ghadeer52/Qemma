@@ -6,10 +6,16 @@ struct OnboardingPagerView: View {
 
     var body: some View {
         TabView {
-            WelcomeView()
+            // Skip: finishes onboarding without saving a weight (default stays 10),
+            // so MyApp switches to JourneyMap.
+            WelcomeView(onSkip: {
+                hasSeenOnboarding = true
+            })
+
             HowItWorksView()
+
             SetWeightView(onContinue: { kg in
-                weightKg = kg
+                weightKg = kg              // PlanEditorView reads the same key
                 hasSeenOnboarding = true
             })
         }

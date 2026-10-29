@@ -17,6 +17,10 @@ private extension Color {
 
 struct WelcomeView: View {
     var onGetStarted: () -> Void = {}
+    var onSkip: () -> Void = {}
+    
+    
+    
     //@State var path = navpath()
     //@State var onGetStarted = false
     var body: some View {
@@ -38,6 +42,19 @@ struct WelcomeView: View {
                         .multilineTextAlignment(.center)
                         .lineSpacing(3)
                         .foregroundStyle(Color.welcomeSubtitle)
+                    
+                    Button(action: onSkip) {
+                        Text("Skip")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(Color.welcomeGold)
+                            .padding(.horizontal, 32)
+                            .padding(.vertical, 10)
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.welcomeGold, lineWidth: 1.5)
+                            )
+                    }
+                    .padding(.top, 12)
                 }
                 .padding(.top, 24)
                 .padding(.horizontal, 24)
