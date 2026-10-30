@@ -22,11 +22,20 @@ struct SetWeightView: View {
     var body: some View {
         ZStack {
             WeightPalette.background.ignoresSafeArea()
+            
+            // MARK: IMAGE
+                        Image("highswet")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 100)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                            .padding(.top, 128)             .allowsHitTesting(false)
+                        
 
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Set your weight")
-                        .font(.system(size: 28, weight: .regular))
+                        .font(.system(size: 28, weight: .bold))
                         .foregroundStyle(WeightPalette.title)
 
                     Text("This is your starting point in lifting weights.\nYou can change it later in Settings.")

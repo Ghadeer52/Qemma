@@ -34,7 +34,7 @@ struct WelcomeView: View {
 
                 VStack(spacing: 12) {
                     Text("Welcome to Qemma")
-                        .font(.system(size: 30, weight: .regular))
+                        .font(.system(size: 30, weight: .bold))
                         .foregroundStyle(Color(red: 0.96, green: 0.93, blue: 0.88))
 
                     Text("Climb the mountains of Saudi Arabia,\none lift at a time.")
@@ -126,19 +126,6 @@ private struct WelcomeMountainIllustration: View {
                 }
                 .fill(Color.welcomeFarMountain)
 
-                
-                // Character standing on the gold peak
-                let charWidth: CGFloat = 76 * sx
-                let charHeight = charWidth * 528 / 560          // keeps the SVG's aspect ratio
-                let feetY: CGFloat = 242                         // peak height on the 335x415 canvas
-                let feetX: CGFloat = 220                         // peak position on the canvas
-
-                Image("climp")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: charWidth, height: charHeight)
-                    .position(x: feetX * sx,
-                              y: feetY * sy - charHeight * 0.405)   // puts the feet on the peak
                 // Near (gold) mountains
                 Path { path in
                     path.move(to: p(0, 350))
@@ -153,6 +140,21 @@ private struct WelcomeMountainIllustration: View {
                     path.closeSubpath()
                 }
                 .fill(Color.welcomeGold)
+                
+                
+                
+                // Character standing on the gold peak
+                let charWidth: CGFloat = 76 * sx
+                let charHeight = charWidth * 528 / 560          // keeps the SVG's aspect ratio
+                let feetY: CGFloat = 270                       // peak height on the 335x415 canvas
+                let feetX: CGFloat = 240                         // peak position on the canvas
+
+                Image("climp")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: charWidth, height: charHeight)
+                    .position(x: feetX * sx,
+                              y: feetY * sy - charHeight * 0.405)   // puts the feet on the peak
 
                 // Flag on the summit
                 Path { path in
@@ -170,7 +172,7 @@ private struct WelcomeMountainIllustration: View {
                 .fill(Color.welcomeGold)
 
                 // Dotted route
-               Path { path in
+                Path { path in
                     path.move(to: p(50, 392))
                     path.addCurve(to: p(135, 330),
                                   control1: p(80, 360),
@@ -181,12 +183,13 @@ private struct WelcomeMountainIllustration: View {
                 }
                 .stroke(Color.white.opacity(0.9),
                         style: StrokeStyle(lineWidth: 2, lineCap: .round, dash: [0.5, 5]))
+                .offset(x: -25, y: 45)
 
                 // Position marker
                 Circle()
                     .stroke(Color.welcomeMarker, lineWidth: 2.5)
                     .frame(width: 16 * sx, height: 16 * sx)
-                    .position(p(258, 250))
+                    .position(p(230, 290))
 
                 // Fade into the background
                 LinearGradient(

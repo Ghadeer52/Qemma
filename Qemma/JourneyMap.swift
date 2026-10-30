@@ -5,10 +5,6 @@ import SwiftUI
 struct JourneyMap: View {
     var level = 2
     var xp = XPProgress(current: 380, total: 1000)
-    
-    /*@StateObject private var connectivity = PhoneConnectivityManager()
-    @State private var plan = WorkoutPlan(repsPerSet: [10, 9, 8])
-    @State private var showPlanEditor = false*/
 
     var body: some View {
         ZStack {
@@ -18,23 +14,14 @@ struct JourneyMap: View {
                 header
 
                 ClimbMap()
-                    .frame(maxWidth: .infinity)   // يخلي الخريطة (402 عرض) تتوسط الشاشة
-
+                    .frame(maxWidth: .infinity)
                 Spacer(minLength: 0)
 
                 startButton
             }
             .padding(.horizontal, 24)
             
-        }/*.sheet(isPresented: $showPlanEditor) {
-            PlanEditorView(
-                plan: $plan,
-                onStart: { connectivity.startOnWatch(plan: plan) },
-                status: connectivity.status
-            )
         }
-        // After a workout, the Watch suggests the next goal.
-        .onReceive(connectivity.$suggestedPlan.compactMap { $0 }) { plan = $0 }*/
     }
 
     private var header: some View {
@@ -111,7 +98,7 @@ struct ClimbMap: View {
                         .frame(minWidth: 44, minHeight: 44)   // منطقة لمس مريحة
                         .contentShape(Circle())
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(BounceButtonStyle())
                 .accessibilityLabel(node.stage.name)
                 .position(node.point)
 
@@ -171,6 +158,16 @@ struct ClimbMap: View {
         .allowsHitTesting(false)
     }
 }
+// MARK: - NEW: ستايل الحركة (يصغّر عند الضغط ويرجع بنطّة ناعمة)
+
+private struct BounceButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.8 : 1)
+            .animation(.spring(response: 0.3, dampingFraction: 0.45),
+                       value: configuration.isPressed)
+    }
+}
 
 // MARK: - شكل النقطة حسب الحالة
 
@@ -187,21 +184,14 @@ struct StageMarker: View {
 
         case .current:
             ZStack {
-                /*Circle()
-                    .fill(Color.qVioletDeep.opacity(0.6))      // التوهج
-                    .frame(width: 52, height: 52)
-                Circle()
-                    .fill(Color.qBackground)
-                    .overlay(Circle().stroke(Color.qViolet, lineWidth: 4))
-                    .frame(width: 30, height: 30)*/
-                
-                Circle().fill(Color.qVioletDeep.opacity(0.4))      // glow stays
-                            .frame(width: 50, height: 68)
+                Circle().fill(Color.qVioletDeep.opacity(0.4))
+                            .frame(width: 55, height: 68)
 
-                        Image("risehands")
+                        Image("hi")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 56) // height follows the SVG ratio (~46)
+                            .frame(width: 56)
+                            .offset(x: 6.5)
                             .accessibilityHidden(true)
             }
 
@@ -246,15 +236,15 @@ private struct ContourGroup {
 
 struct ContourLines: View {
     private let groups: [ContourGroup] = [
-        ContourGroup(center: CGPoint(x: 240, y: 88),
+        ContourGroup(center: CGPoint(x: 265, y: 88),
                      sizes: [CGSize(width: 320, height: 170),
                              CGSize(width: 230, height: 120),
                              CGSize(width: 130, height: 70)]),
-        ContourGroup(center: CGPoint(x: 255, y: 335),
+        ContourGroup(center: CGPoint(x: 275, y: 320),
                      sizes: [CGSize(width: 330, height: 270),
                              CGSize(width: 200, height: 150),
                              CGSize(width: 95,  height: 70)]),
-        ContourGroup(center: CGPoint(x: 128, y: 460),
+        ContourGroup(center: CGPoint(x: 115, y: 450),
                      sizes: [CGSize(width: 256, height: 150),
                              CGSize(width: 150, height: 90),
                              CGSize(width: 60,  height: 40)])
