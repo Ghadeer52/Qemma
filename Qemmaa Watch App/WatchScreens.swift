@@ -137,6 +137,7 @@ struct LevelStartWatchView: View {
 struct ActiveSetWatchView: View {
     var set = 2, totalSets = 3
     var reps = 7, totalReps = 10
+    var holding = false
 
     var body: some View {
         ZStack {
@@ -153,6 +154,11 @@ struct ActiveSetWatchView: View {
         }
         .overlay(alignment: .topLeading) {
             Text("Set \(set)/\(totalSets)").font(.caption.weight(.semibold)).foregroundStyle(Color.qMuted)
+        }
+        .overlay(alignment: .top) {
+            if holding {
+                Image(systemName: "pause.circle.fill").foregroundStyle(Color.qGold)   // set is held, keep going
+            }
         }
     }
 }

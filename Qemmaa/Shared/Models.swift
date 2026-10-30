@@ -20,6 +20,13 @@ struct WorkoutPlan: Codable, Equatable {
 }
 
 /// The user's place on the journey. The Watch is the source of truth.
+/// Body data from the Health app. The iPhone reads it (that is where the data lives) and sends it to the Watch.
+struct HealthProfile: Codable, Equatable {
+    var bodyWeightKg: Double?
+    var heightM: Double?
+    var sex: Sex?
+}
+
 struct JourneyProgress: Codable, Equatable {
     var level = 1
     var weightKg = 10.0

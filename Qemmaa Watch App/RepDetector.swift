@@ -5,6 +5,8 @@ struct RepMetrics: Codable, Equatable {
     var peakSpeed: Double             // deg/s, highest instantaneous speed
     var rangeOfMotion: Double         // degrees
     var concentricDuration: Double    // seconds
+    var peakAngle: Double = 0         // degrees from hanging straight down, at the top of the curl
+    var shake: Double = 0             // rad/s: RMS of the fast wobble (above ~3.5 Hz) of the wrist rotation during this rep
 }
 
 /// Counts biceps curls from ONE number: the angle between gravity now and gravity at the
@@ -16,7 +18,7 @@ struct RepMetrics: Codable, Equatable {
 struct RepDetector {
     struct Config {
         var reversal = 15.0        // degrees of drop that confirms a peak
-        var minROM = 50.0          // degrees; smaller movements are not reps
+        var minROM = 45.0          // degrees; smaller movements are not reps
         var minRepInterval = 0.9   // seconds between reps (a real curl takes longer than this)
         var rearmFraction = 0.6    // after a rep the arm must come back below 60% of that peak
     }
@@ -60,7 +62,8 @@ struct RepDetector {
                     let metrics = RepMetrics(meanConcentricSpeed: (peak - trough) / duration,
                                              peakSpeed: maxSpeed,
                                              rangeOfMotion: peak - trough,
-                                             concentricDuration: duration)
+                                             concentricDuration: duration,
+                                             peakAngle: peak)
                     lastRepTime = tPeak
                     lastPeak = peak
                     needsRearm = true

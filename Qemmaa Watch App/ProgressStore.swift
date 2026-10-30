@@ -78,6 +78,12 @@ final class ProgressStore {
         save()
     }
 
+    /// Forgets the usual opening speeds (used when the angle/speed measurement changes).
+    func resetBaselines() {
+        progress.baselineVelocity.removeAll()
+        save()
+    }
+
     private func save() {
         if let data = try? JSONEncoder().encode(progress) {
             UserDefaults.standard.set(data, forKey: key)

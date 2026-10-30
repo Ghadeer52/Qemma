@@ -1,5 +1,6 @@
 import WatchConnectivity
 import Combine   // ObservableObject and @Published live here
+import HealthKit
 
 /// iPhone side. Add this file to the iOS target (plus Shared/Models.swift).
 final class PhoneConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
@@ -7,6 +8,8 @@ final class PhoneConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
     @Published var summaries: [WorkoutSummary] = []
     /// What the Watch suggests for the next workout (new goal reps / new weight).
     @Published var suggestedPlan: WorkoutPlan?
+    /// Shown under the Start button so the user sees what happened.
+    @Published var status = ""
 
     private let summariesURL = URL.documentsDirectory.appending(path: "summaries.json")
 
@@ -21,11 +24,65 @@ final class PhoneConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
         WCSession.default.activate()
     }
 
-    /// Call when the user changes weight / sets / reps / rest on the Start Workout screen.
-    func send(plan: WorkoutPlan) {
-        guard WCSession.default.activationState == .activated,
-              let data = try? JSONEncoder().encode(plan) else { return }
-        try? WCSession.default.updateApplicationContext(["type": "plan", "plan": data])
+    /// Reads body weight, height and sex from the Health app (the data lives on the iPhone) and sends them
+    /// to the Watch. Needs the HealthKit capability and NSHealthShareUsageDescription in the iPhone target.
+    func sendHealthProfile() {
+        guard HKHealthStore.isHealthDataAvailable() else { return }
+        let store = HKHealthStore()
+        let read: Set<HKObjectType> = [HKQuantityType(.bodyMass), HKQuantityType(.height),
+                                       HKCharacteristicType(.biologicalSex)]
+        Task {
+            do { try await store.requestAuthorization(toShare: [], read: read) } catch { return }
+            func latest(_ id: HKQuantityTypeIdentifier, _ unit: HKUnit) async -> Double? {
+                await withCheckedContinuation { cont in
+                    let sort = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+                    let q = HKSampleQuery(sampleType: HKQuantityType(id), predicate: nil, limit: 1,
+                                          sortDescriptors: [sort]) { _, s, _ in
+                        cont.resume(returning: (s?.first as? HKQuantitySample)?.quantity.doubleValue(for: unit))
+                    }
+                    store.execute(q)
+                }
+            }
+            var profile = HealthProfile()
+            profile.bodyWeightKg = await latest(.bodyMass, .gramUnit(with: .kilo))
+            profile.heightM = await latest(.height, .meter())
+            switch try? store.biologicalSex().biologicalSex {
+            case .male: profile.sex = .male
+            case .female: profile.sex = .female
+            default: break
+            }
+            guard let data = try? JSONEncoder().encode(profile) else { return }
+            WCSession.default.transferUserInfo(["type": "profile", "profile": data])
+        }
+    }
+
+    /// Sends the plan and starts the workout on the Watch.
+    func startOnWatch(plan: WorkoutPlan) {
+        let session = WCSession.default
+        guard session.activationState == .activated else { status = "Connecting... try again in a moment."; return }
+        guard session.isPaired else { status = "No Apple Watch is paired with this iPhone."; return }
+        guard session.isWatchAppInstalled else { status = "Install the Qemma app on your Watch first."; return }
+        sendHealthProfile()
+        guard let data = try? JSONEncoder().encode(plan) else { return }
+        let payload: [String: Any] = ["type": "start", "plan": data]
+
+        // 1. Wake the Watch app (it opens even if it was closed).
+        let config = HKWorkoutConfiguration()
+        config.activityType = .traditionalStrengthTraining
+        config.locationType = .indoor
+        HKHealthStore().startWatchApp(with: config) { _, _ in }
+
+        // 2. Deliver the plan: instantly if the Watch app is open, otherwise queued until it opens.
+        if session.isReachable {
+            session.sendMessage(payload, replyHandler: nil) { [weak self] _ in
+                session.transferUserInfo(payload)
+                DispatchQueue.main.async { self?.status = "Queued. Open Qemma on your Watch." }
+            }
+            status = "Sent. Your workout is starting on the Watch."
+        } else {
+            session.transferUserInfo(payload)
+            status = "Sent. Open Qemma on your Watch to begin."
+        }
     }
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}

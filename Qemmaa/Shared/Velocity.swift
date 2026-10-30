@@ -33,10 +33,15 @@ enum Velocity {
         return min(max((best - current) / best, 0), 1)
     }
 
-    /// Velocity loss of a whole set: best rep versus last rep.
+    /// Speed loss of a whole set: the MEDIAN of the first 3 reps versus the MEDIAN of the last 3 reps
+    /// (2 and 2 for short sets). Medians, because one fast or odd rep (a jerk, a wrist flip) must not decide
+    /// the set: "fastest rep" was inflated by single fast reps in the 30 Oct failure sets.
     static func setLoss(_ repVelocities: [Double]) -> Double {
-        guard let best = repVelocities.max(), let last = repVelocities.last else { return 0 }
-        return loss(current: last, best: best)
+        let n = repVelocities.count
+        guard n >= 2 else { return 0 }
+        let k = min(3, n / 2)
+        func median(_ a: ArraySlice<Double>) -> Double { let s = a.sorted(); return s[s.count / 2] }
+        return loss(current: median(repVelocities.suffix(k)), best: median(repVelocities.prefix(k)))
     }
 
     /// Fastest of the first two reps (one slow first rep should not fool us).

@@ -20,7 +20,7 @@ enum EffortEstimator {
         var repsInReserve: Double
     }
 
-    /// Needs at least 4 good reps. Returns nil when there is not enough data.
+    /// Needs at least 4 good reps and a clear slowing at the end. Returns nil otherwise.
     static func estimate(velocities: [Double], failureLoss: Double = priorFailureLoss) -> Estimate? {
         let n = velocities.count
         guard n >= 4, failureLoss > 0 else { return nil }
@@ -38,12 +38,25 @@ enum EffortEstimator {
         let start = meanY - slope * meanX
         guard start > 0 else { return nil }
 
+        // Guard: only trust the estimate when the set really slowed at the end (last reps slower than the
+        // earlier ones). A shaky or hesitant start can make the speed trend look flat: then we say "unknown"
+        // (nil) instead of "far from failure", so such a set can never raise the weight by accident.
+        let k = n >= 6 ? 3 : 2
+        let earlier = velocities.prefix(n - k).reduce(0, +) / Double(n - k)
+        let recent = velocities.suffix(k).reduce(0, +) / Double(k)
+        guard recent < 0.9 * earlier else { return nil }
+
         // Speed not falling at all: very far from failure. Capped at 10 reps in reserve.
         guard slope < -0.0001 else { return Estimate(maxReps: count + 10, repsInReserve: 10) }
 
         let failureSpeed = (1 - failureLoss) * start
         let maxReps = (failureSpeed - start) / slope + 1
-        return Estimate(maxReps: maxReps, repsInReserve: min(max(maxReps - count, 0), 10))
+        var reserve = min(max(maxReps - count, 0), 10)
+        // The straight-line fit is slow to react when a set ends in a grind. If the last reps are already
+        // clearly slower than the first reps (see Progression.hardSetLoss), he is at the limit.
+        // From two sets to failure (30 Oct): the line said 4.3 and 10 reps left; the real answer was 0.
+        if Velocity.setLoss(velocities) >= Progression.hardSetLoss { reserve = min(reserve, 1) }
+        return Estimate(maxReps: maxReps, repsInReserve: reserve)
     }
 
     /// From a set taken to failure: the speed loss of its last rep versus its fastest rep,

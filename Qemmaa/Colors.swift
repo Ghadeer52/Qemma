@@ -3,10 +3,11 @@ import SwiftUI
 // Colors: Xcode already creates Color.qBackground, Color.qGold, ... from the names in Assets.xcassets
 // ("Generate Asset Symbol Extensions"). So there is NO manual `extension Color` here.
 // Use them in views like this:  .foregroundStyle(Color.qGold)
-//
+
 // Needs iOS 17 / watchOS 10 or newer. If your deployment target is older, see README.
 
 // MARK: - Palette page (preview only, to see every color in one place)
+
 struct PalettePage: View {
     private let items: [(name: String, hex: String, use: String, color: Color)] = [
         ("QBackground", "#0E0B09", "App background", .qBackground),

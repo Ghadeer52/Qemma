@@ -6,6 +6,7 @@ import SwiftUI
 struct PlanEditorView: View {
     @Binding var plan: WorkoutPlan
     var onStart: () -> Void = {}
+    var status: String = ""
 
     private let maxSets = 8
     private let maxReps = 30
@@ -26,17 +27,6 @@ struct PlanEditorView: View {
                 StepperRow(label: "Rest time", value: restText,
                            onMinus: { plan.restSeconds = max(15, plan.restSeconds - 15) },
                            onPlus: { plan.restSeconds = min(300, plan.restSeconds + 15) })
-
-                Toggle(isOn: $plan.calibrate) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Test set to failure").foregroundStyle(Color.qText)
-                        Text("One hard set, once in a while. Helps the Watch judge when to add weight.")
-                            .font(.footnote).foregroundStyle(Color.qMuted)
-                    }
-                }
-                .tint(Color.qGold)
-                .padding(.horizontal, 24).padding(.vertical, 12)
-                .background(Color.qCard, in: RoundedRectangle(cornerRadius: 22))
 
                 setsHeader
 
@@ -63,6 +53,10 @@ struct PlanEditorView: View {
         }
         .background(Color.qBackground.ignoresSafeArea())
         .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 6) {
+            if !status.isEmpty {
+                Text(status).font(.footnote).foregroundStyle(Color.qMuted).multilineTextAlignment(.center)
+            }
             Button {
                 plan.updatedAt = .now
                 onStart()
@@ -74,6 +68,7 @@ struct PlanEditorView: View {
                     .background(Color.qGold, in: Capsule())
             }
             .padding(.horizontal, 24)
+            }
             .padding(.bottom, 8)
             .background(Color.qBackground)
         }
@@ -192,7 +187,7 @@ struct StepperRow: View {
 //     @StateObject private var connectivity = PhoneConnectivityManager()
 //     @State private var plan = WorkoutPlan(repsPerSet: [10, 9, 8])
 //     var body: some View {
-//         PlanEditorView(plan: $plan) { connectivity.send(plan: plan) }
+//         PlanEditorView(plan: $plan, onStart: { connectivity.startOnWatch(plan: plan) }, status: connectivity.status)
 //             // After a workout the Watch suggests the next goal (more reps, or a heavier weight).
 //             .onReceive(connectivity.$suggestedPlan.compactMap { $0 }) { plan = $0 }
 //     }

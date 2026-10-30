@@ -6,6 +6,10 @@ import Combine   // ObservableObject and @Published live here
 /// - transferUserInfo: every message arrives, in order, even if the iPhone is off (workout summaries).
 final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     @Published var receivedPlan: WorkoutPlan?
+    /// Set when the iPhone presses "Start on Watch".
+    @Published var startRequest: WorkoutPlan?
+    /// Body weight, height and sex that the iPhone read from the Health app.
+    @Published var receivedProfile: HealthProfile?
 
     override init() {
         super.init()
@@ -29,9 +33,29 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
 
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        guard applicationContext["type"] as? String == "plan",
-              let data = applicationContext["plan"] as? Data,
+        handle(applicationContext)
+    }
+
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        handle(message)
+    }
+
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
+        handle(userInfo)
+    }
+
+    private func handle(_ dict: [String: Any]) {
+        if dict["type"] as? String == "profile", let data = dict["profile"] as? Data,
+           let profile = try? JSONDecoder().decode(HealthProfile.self, from: data) {
+            DispatchQueue.main.async { self.receivedProfile = profile }
+            return
+        }
+        guard let type = dict["type"] as? String, type == "plan" || type == "start",
+              let data = dict["plan"] as? Data,
               let plan = try? JSONDecoder().decode(WorkoutPlan.self, from: data) else { return }
-        DispatchQueue.main.async { self.receivedPlan = plan }
+        DispatchQueue.main.async {
+            self.receivedPlan = plan
+            if type == "start" { self.startRequest = plan; self.startRequest = nil }
+        }
     }
 }

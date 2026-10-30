@@ -10,6 +10,9 @@ final class WorkoutManager: NSObject, ObservableObject {
     private var heartRates: [Double] = []
 
     @Published var heartRate: Double = 0
+    /// Called when the user pauses / resumes from the system (Dock, Control Center, Now Playing card).
+    var onSystemPause: (() -> Void)?
+    var onSystemResume: (() -> Void)?
 
     var averageHeartRate: Double? {
         heartRates.isEmpty ? nil : heartRates.reduce(0, +) / Double(heartRates.count)
@@ -25,6 +28,7 @@ final class WorkoutManager: NSObject, ObservableObject {
             try await healthStore.requestAuthorization(toShare: share, read: read)
             return true
         } catch {
+            qlog("HEALTH authorization failed: \(error.localizedDescription)")
             return false
         }
     }
@@ -41,6 +45,7 @@ final class WorkoutManager: NSObject, ObservableObject {
         }
         let weight = await latestQuantity(.bodyMass, unit: .gramUnit(with: .kilo))
         let height = await latestQuantity(.height, unit: .meter())
+        qlog("HEALTH on Watch: weight \(weight.map { String($0) } ?? "none")  height \(height.map { String($0) } ?? "none")  sex \(sex.map { $0.rawValue } ?? "none")")
         return (weight, sex, height)
     }
 
@@ -48,7 +53,8 @@ final class WorkoutManager: NSObject, ObservableObject {
         await withCheckedContinuation { continuation in
             let sort = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
             let query = HKSampleQuery(sampleType: HKQuantityType(id), predicate: nil, limit: 1,
-                                      sortDescriptors: [sort]) { _, samples, _ in
+                                      sortDescriptors: [sort]) { _, samples, error in
+                if let error { qlog("HEALTH read error (\(id.rawValue)): \(error.localizedDescription)") }
                 continuation.resume(returning: (samples?.first as? HKQuantitySample)?.quantity.doubleValue(for: unit))
             }
             healthStore.execute(query)
@@ -74,8 +80,8 @@ final class WorkoutManager: NSObject, ObservableObject {
         try await builder.beginCollection(at: startDate)
     }
 
-    func pause() { session?.pause() }
-    func resume() { session?.resume() }
+    func pause() { if session?.state == .running { session?.pause() } }
+    func resume() { if session?.state == .paused { session?.resume() } }
 
     func end() async {
         session?.end()
@@ -92,8 +98,17 @@ final class WorkoutManager: NSObject, ObservableObject {
 
 extension WorkoutManager: HKWorkoutSessionDelegate {
     func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState,
-                        from fromState: HKWorkoutSessionState, date: Date) {}
-    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {}
+                        from fromState: HKWorkoutSessionState, date: Date) {
+        // The system buttons (Dock, Control Center) pause the session without telling the app: follow them.
+        qlog("WORKOUT SESSION state: \(fromState.rawValue) -> \(toState.rawValue)  (1 not started, 2 running, 3 ended, 4 paused)")
+        DispatchQueue.main.async {
+            if toState == .paused { self.onSystemPause?() }
+            if toState == .running, fromState == .paused { self.onSystemResume?() }
+        }
+    }
+    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
+        qlog("WORKOUT SESSION failed: \(error.localizedDescription)")
+    }
 }
 
 extension WorkoutManager: HKLiveWorkoutBuilderDelegate {

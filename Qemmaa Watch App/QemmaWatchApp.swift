@@ -1,7 +1,10 @@
 import SwiftUI
+import WatchKit
+import HealthKit
 
 @main
 struct QemmaWatchApp: App {
+    @WKApplicationDelegateAdaptor(WatchAppDelegate.self) private var delegate
     var body: some Scene {
         WindowGroup { QemmaWatchRoot() }
     }
@@ -43,11 +46,15 @@ struct QemmaWatchRoot: View {
             CountdownWatchView(number: n)
         case .activeSet:
             ActiveSetWatchView(set: vm.currentSet, totalSets: vm.plan.sets,
-                               reps: vm.reps, totalReps: vm.targetReps)
+                               reps: vm.reps, totalReps: vm.targetReps, holding: vm.holding)
                 .toolbar {
                     ToolbarItem(placement: .bottomBar) {
-                        Button(action: vm.pause) { Image(systemName: "pause.fill") }
-                            .accessibilityLabel("Pause")
+                        HStack {
+                            Button(action: vm.pause) { Image(systemName: "pause.fill") }
+                                .accessibilityLabel("Pause")
+                            Button(action: vm.doneSet) { Image(systemName: "checkmark") }
+                                .accessibilityLabel("Done with this set")
+                        }
                     }
                 }
         case .rest:
@@ -60,7 +67,7 @@ struct QemmaWatchRoot: View {
                     if r.summary.leveledUp || r.outcome.leveledUp {
                         LevelUpWatchView(level: r.level, from: Int(r.weightFrom.rounded()), to: Int(r.weightTo.rounded()))
                     } else {
-                        WellDoneWatchView(goodReps: r.goodReps, progress: vm.levelProgress)
+                        WellDoneWatchView(goodReps: r.goodReps, progress: vm.levelProgress, advice: r.advice)
                     }
                 }
                 .onTapGesture(perform: vm.dismissResult)
@@ -89,6 +96,21 @@ struct CountdownWatchView: View {
 struct WellDoneWatchView: View {
     let goodReps: Int
     let progress: Double
+    var advice: Progression.Advice = .keep
+    private var adviceText: String {
+        switch advice {
+        case .addWeight: return "Heavier next time"
+        case .addReps: return "Add a rep next time"
+        case .keep: return "Same again"
+        }
+    }
+    private var adviceIcon: String {
+        switch advice {
+        case .addWeight: return "dumbbell.fill"
+        case .addReps: return "plus.circle.fill"
+        case .keep: return "equal.circle.fill"
+        }
+    }
     var body: some View {
         ZStack(alignment: .top) {
             Mountains().padding(.top, 50).ignoresSafeArea()
@@ -97,9 +119,15 @@ struct WellDoneWatchView: View {
         .overlay(alignment: .bottom) {
             VStack(spacing: 4) {
                 Text("\(goodReps) good reps").font(.caption.weight(.semibold)).foregroundStyle(Color.qText)
+                Label(adviceText, systemImage: adviceIcon).font(.caption2).foregroundStyle(Color.qGold)
                 ProgressView(value: progress).tint(Color.qVioletLight)
             }
             .padding(.horizontal, 24).padding(.bottom, 8)
         }
     }
+}
+
+/// Lets the iPhone wake this app (HKHealthStore.startWatchApp). The workout itself starts from the plan message.
+final class WatchAppDelegate: NSObject, WKApplicationDelegate {
+    func handle(_ workoutConfiguration: HKWorkoutConfiguration) {}
 }

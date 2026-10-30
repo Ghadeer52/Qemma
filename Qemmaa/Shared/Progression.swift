@@ -62,31 +62,56 @@ enum Progression {
         return out
     }
 
+    // MARK: Advice after a workout
+
+    enum Advice: String { case addReps, addWeight, keep }
+
+    /// Speed loss (median of the first 3 reps vs median of the last 3) at the end of a set that counts as "at the limit".
+    /// ASSUMPTION: from two sets to failure by one person (34% and 28%); easy sets were 0-10%. Not validated on curls.
+    static let hardSetLoss = 0.25
+
+    /// What to do next time, from the LAST set (the most tired one):
+    /// - did not reach the target: keep (finish the reps first)
+    /// - 2+ reps over the target: add weight (ACSM 2009: 1-2 reps over the target)
+    /// - ended at the limit (big speed loss or a stalled rep): the weight is right -> add reps, or add weight at the top of the range
+    /// - ended with energy left: add reps
+    static func advice(reps: Int, target: Int, speedLoss: Double, stalled: Bool) -> Advice {
+        guard reps >= target else { return .keep }
+        if reps >= target + overTargetReps { return .addWeight }
+        let atLimit = stalled || speedLoss >= hardSetLoss
+        if atLimit { return target >= repCeiling ? .addWeight : .addReps }
+        return .addReps
+    }
+
     // MARK: Sensor-based weight decision
 
     /// "Too light" = the sensors say he could do at least this many more reps after hitting every target.
     /// ACSM's rule raises the load when the lifter can do 1-2 reps over the target.
     static let minRIRToProgress = 2.0
+    /// ACSM 2009: raise the load when the lifter can do 1-2 reps OVER the target. Counted reps, so it does not
+    /// depend on speed (which mostly shows how fast he chose to lift, not how heavy the weight is).
+    static let overTargetReps = 2
 
     struct LoadDecision: Equatable {
         var lightStreak: Int
         var increase: Bool
     }
 
-    /// Weight goes up when, in 2 workouts in a row, every set hit its target AND the speed loss says
-    /// he still had about 2+ reps left. This can happen BEFORE the 12-rep top of the ladder.
+    /// Weight goes up when, in 2 workouts in a row, every set hit its target AND the speed loss of the
+    /// LAST set says he still had about 2+ reps left (a set that stalls or grinds counts as failure = 0 left). This can happen BEFORE the 12-rep top of the ladder.
     static func evaluateLoad(goodReps: [Int], targets: [Int], plannedSets: Int,
                              repsInReserve: [Double?], lightStreak: Int) -> LoadDecision {
         guard goodReps.count == targets.count, targets.count >= plannedSets else {
             return LoadDecision(lightStreak: lightStreak, increase: false)   // unfinished workout
         }
         let hitAll = zip(goodReps, targets).allSatisfy { $0 >= $1 }
-        let known = repsInReserve.compactMap { $0 }.sorted()
-        guard hitAll, known.count * 2 >= targets.count else {
+        // Judge the LAST set: it is the most tired one, and people judge "reps left" far better close to
+        // failure than far from it (Casanova 2025: error about 0.1-0.7 reps at 1 left, 1.5-4.7 at 3 left).
+        let overTarget = (goodReps.last ?? 0) >= (targets.last ?? Int.max) + overTargetReps
+        let lastRIR = (repsInReserve.last ?? nil) ?? 0
+        guard hitAll, overTarget || lastRIR >= minRIRToProgress else {
             return LoadDecision(lightStreak: 0, increase: false)
         }
-        let median = known[known.count / 2]
-        guard median >= minRIRToProgress else { return LoadDecision(lightStreak: 0, increase: false) }
         let streak = lightStreak + 1
         return streak >= sessionsNeeded ? LoadDecision(lightStreak: 0, increase: true)
                                         : LoadDecision(lightStreak: streak, increase: false)
