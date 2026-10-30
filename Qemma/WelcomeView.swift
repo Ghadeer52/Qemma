@@ -63,18 +63,6 @@ struct WelcomeView: View {
 
                 WelcomePageDots(count: 3, current: 0)
                     .padding(.bottom, 28)
-
-                /*Button(action: onGetStarted) {
-                    Text("Get Started")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundStyle(Color.welcomeBackground)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 52)
-                        .background(Color.welcomeGold, in: Capsule())
-                    
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 12)*/
                 
             }
         }
@@ -169,7 +157,7 @@ private struct WelcomeMountainIllustration: View {
                     path.addLine(to: p(167, 120))
                     path.closeSubpath()
                 }
-                .fill(Color.welcomeGold)
+                .fill(Color.qVioletDeep)
 
                 // Dotted route
                 Path { path in
