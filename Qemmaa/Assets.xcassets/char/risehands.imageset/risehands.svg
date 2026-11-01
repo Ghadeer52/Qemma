@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="690px" height="570px" viewBox="0 0 690 570" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <defs>
+        <radialGradient cx="0%" cy="0%" fx="0%" fy="0%" r="0%" gradientTransform="translate(0, 0), scale(0.1043, 1), translate(-0, -0)" id="radialGradient-1">
+            <stop stop-color="#2B1E3A" stop-opacity="0.3" offset="0%"></stop>
+            <stop stop-color="#2B1E3A" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#BD93DB" offset="0%"></stop>
+            <stop stop-color="#9566B8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#BD93DB" offset="0%"></stop>
+            <stop stop-color="#9566B8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#BD93DB" offset="0%"></stop>
+            <stop stop-color="#9566B8" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="13.2183977%" cy="12.6466139%" fx="13.2183977%" fy="12.6466139%" r="179.24028%" gradientTransform="translate(0.1322, 0.1265), scale(1, 0.8186), translate(-0.1322, -0.1265)" id="radialGradient-5">
+            <stop stop-color="#A583C0" offset="0%"></stop>
+            <stop stop-color="#8E6AA8" offset="55%"></stop>
+            <stop stop-color="#6F4F8A" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="7.95667008%" cy="-14.5076902%" fx="7.95667008%" fy="-14.5076902%" r="188.758407%" gradientTransform="translate(0.0796, -0.1451), scale(0.755, 1), translate(-0.0796, 0.1451)" id="radialGradient-6">
+            <stop stop-color="#A583C0" offset="0%"></stop>
+            <stop stop-color="#8E6AA8" offset="55%"></stop>
+            <stop stop-color="#6F4F8A" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="37.0660267%" cy="25.9105024%" fx="37.0660267%" fy="25.9105024%" r="248.420351%" gradientTransform="translate(0.3707, 0.2591), scale(1, 0.4989), translate(-0.3707, -0.2591)" id="radialGradient-7">
+            <stop stop-color="#A583C0" offset="0%"></stop>
+            <stop stop-color="#8E6AA8" offset="55%"></stop>
+            <stop stop-color="#6F4F8A" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="321.305628%" cy="-3736.24775%" fx="321.305628%" fy="-3736.24775%" r="6380.94541%" gradientTransform="translate(3.2131, -37.3625), scale(0.7851, 1), translate(-3.2131, 37.3625)" id="radialGradient-8">
+            <stop stop-color="#A583C0" offset="0%"></stop>
+            <stop stop-color="#8E6AA8" offset="55%"></stop>
+            <stop stop-color="#6F4F8A" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="B3_double_flex" transform="translate(-237, -97)">
+            <g id="Group" transform="translate(765.1135, 336.9562) scale(-1, 1) translate(-765.1135, -336.9562)translate(669.6135, 228.4562)">
+                <g transform="translate(288.1135, 155.7438) scale(-1, 1) translate(-288.1135, -155.7438)translate(-46.3865, -127.0562)">
+                    <g transform="translate(49.6135, 87.0562)">
+                        <line x1="64.3865473" y1="207.543761" x2="38.3865473" y2="71.5437609" id="Path" stroke="#B98648" stroke-width="52" stroke-linecap="round"></line>
+                        <line x1="188.386547" y1="187.543761" x2="68.3865473" y2="207.543761" id="Path" stroke="#B98648" stroke-width="62" stroke-linecap="round"></line>
+                        <line x1="188.386547" y1="182.543761" x2="68.3865473" y2="202.543761" id="Path" stroke="#DCAB6B" stroke-width="62" stroke-linecap="round"></line>
+                        <line x1="68.3865473" y1="202.543761" x2="42.3865473" y2="66.5437609" id="Path" stroke="#DCAB6B" stroke-width="52" stroke-linecap="round"></line>
+                        <line x1="190.586547" y1="196.043761" x2="70.5865473" y2="216.043761" id="Path" stroke="#EDC891" stroke-width="12.4" opacity="0.55" stroke-linecap="round"></line>
+                        <ellipse id="Oval" fill="#B98648" transform="translate(121.4264, 165.7986) rotate(170.5) translate(-121.4264, -165.7986)" cx="121.426357" cy="165.798619" rx="40" ry="30"></ellipse>
+                        <ellipse id="Oval" fill="#DCAB6B" transform="translate(122.0865, 169.7438) rotate(170.5) translate(-122.0865, -169.7438)" cx="122.086547" cy="169.743761" rx="40" ry="30"></ellipse>
+                        <ellipse id="Oval" fill="#EDC891" opacity="0.6" transform="translate(131.4623, 177.3) rotate(170.5) translate(-131.4623, -177.3)" cx="131.462261" cy="177.299951" rx="18" ry="8.4"></ellipse>
+                        <g transform="translate(41, 41.3575) rotate(-100.8) translate(-41, -41.3575)translate(6, 7)">
+                            <ellipse id="Oval" fill="#B98648" cx="35" cy="35" rx="35" ry="31"></ellipse>
+                            <ellipse id="Oval" fill="#DCAB6B" cx="35" cy="31" rx="35" ry="31"></ellipse>
+                            <ellipse id="Oval" fill="#EDC891" opacity="0.55" cx="28" cy="22" rx="17" ry="10"></ellipse>
+                            <path d="M46,14 C52.6666667,14.6666667 59,16.6666667 65,20 M48,29 C56,29.6666667 63,31.3333333 69,34 M44,44 C50.6666667,45.3333333 56.6666667,47.3333333 62,50" id="Shape" stroke="#9A7648" stroke-width="4.5" stroke-linecap="round"></path>
+                            <ellipse id="Oval" stroke="#B98648" stroke-width="3" fill="#DCAB6B" transform="translate(20, 53) rotate(-18) translate(-20, -53)" cx="20" cy="53" rx="17" ry="11"></ellipse>
+                        </g>
+                    </g>
+                    <ellipse id="Oval" fill="#EDC891" opacity="0.6" transform="translate(524.9216, 299.1222) rotate(19.8) translate(-524.9216, -299.1222)" cx="524.921595" cy="299.12217" rx="18" ry="8.4"></ellipse>
+                    <ellipse id="Oval" fill="url(#radialGradient-1)" cx="296" cy="541.6" rx="230" ry="24"></ellipse>
+                    <line x1="246" y1="442.6" x2="208" y2="518.6" id="Path" stroke="#B98648" stroke-width="54" stroke-linecap="round"></line>
+                    <line x1="246" y1="437.6" x2="208" y2="513.6" id="Path" stroke="#DCAB6B" stroke-width="54" stroke-linecap="round"></line>
+                    <ellipse id="Oval" fill="#B98648" cx="192" cy="525.6" rx="42" ry="21"></ellipse>
+                    <ellipse id="Oval" fill="#DCAB6B" cx="192" cy="521.6" rx="42" ry="21"></ellipse>
+                    <ellipse id="Oval" fill="#EDC891" opacity="0.55" cx="182" cy="514.6" rx="18" ry="6"></ellipse>
+                    <line x1="316" y1="448.6" x2="336" y2="518.6" id="Path" stroke="#B98648" stroke-width="54" stroke-linecap="round"></line>
+                    <line x1="316" y1="443.6" x2="336" y2="513.6" id="Path" stroke="#DCAB6B" stroke-width="54" stroke-linecap="round"></line>
+                    <ellipse id="Oval" fill="#B98648" cx="320" cy="525.6" rx="42" ry="21"></ellipse>
+                    <ellipse id="Oval" fill="#DCAB6B" cx="320" cy="521.6" rx="42" ry="21"></ellipse>
+                    <ellipse id="Oval" fill="#EDC891" opacity="0.55" cx="310" cy="514.6" rx="18" ry="6"></ellipse>
+                    <path d="M328.8,299.25 C396.4,255.65 427.39,162.91 401.6,81.42 C398.21,70.72 389.11,61.72 378.5,58.58 C367.89,55.44 356.15,58.26 348.71,65.75 C320.1,94.52 301.77,133.63 297.34,175.35 C292.9,217.07 302.39,261.17 328.8,299.25 Z" id="Path" fill="url(#linearGradient-2)"></path>
+                    <path d="M303.52,292.9 C383.47,284.01 452.56,214.82 465.8,130.38 C467.54,119.29 463.41,107.18 455.31,99.64 C447.21,92.09 435.45,89.39 425.44,92.77 C387.01,105.77 353.16,132.6 330.59,167.97 C308.02,203.34 296.86,247.04 303.52,292.9 Z" id="Path" fill="url(#linearGradient-3)"></path>
+                    <path d="M362.6,337.58 C443.03,336.66 518.64,274.65 540.18,191.93 C543.01,181.07 540.1,168.61 532.79,160.3 C525.48,151.99 514.04,148.13 503.75,150.51 C464.22,159.64 427.88,182.99 401.92,215.95 C375.95,248.91 360.51,291.29 362.6,337.58 Z" id="Path" fill="url(#linearGradient-4)"></path>
+                    <path d="M223.8,446.84 C224.47,451.13 228.59,454.04 232.86,453.21 C362.24,428.2 470.17,314.98 487.96,184.23 C490.34,166.72 482.89,148.2 469.05,137.21 C455.21,126.22 435.48,123.17 418.97,129.47 C355.54,153.64 300.4,198.99 264.44,256.55 C229.78,312.01 213.13,378.51 223.8,446.84 Z" id="Path" fill="url(#radialGradient-5)"></path>
+                    <path d="M229.22,453.48 C229.05,454.76 229.95,455.95 231.23,456.12 C363.74,474.22 503.93,398.54 561.24,277.63 C568.81,261.66 567.31,241.76 557.45,227.1 C547.58,212.44 529.7,203.56 512.06,204.57 C444.29,208.42 378.01,234.95 326.32,278.94 C275.17,322.43 238.6,382.77 229.22,453.48 Z" id="Path" fill="url(#radialGradient-6)"></path>
+                    <path d="M226.19,453.65 C226.75,454.542001 227.94,454.81 228.84,454.25 C342.43,383.36 401.78,235.28 368.31,105.58 C363.89,88.47 350,74.14 333.03,69.2 C316.06,64.26 296.65,68.9 283.74,80.97 C234.16,127.33 200.26,190.16 188.73,257.05 C177.3,323.35 187.93,393.25 226.19,453.65 Z" id="Path" fill="url(#radialGradient-7)"></path>
+                    <path d="M234.26,455.96 C232.86,456.23 231.41,456.27 230.04,455.96 C228.67,455.64 227.38,454.95 226.41,453.89 C225.67,453.07 225.11,451.97 225.23,450.8 C225.26,450.48 225.35,450.16 225.5,449.88 C225.75,449.42 226.17,449.08 226.64,448.89 C227.5,448.52 228.47,448.64 229.34,448.89 C231.07,449.4 232.64,450.47 233.78,451.92 C234.24,452.51 234.64,453.18 234.76,453.94 C234.88,454.7 234.69,455.58 234.26,455.96 Z" id="Path" fill="url(#radialGradient-8)"></path>
+                    <ellipse id="Oval" fill="#FFFFFF" opacity="0.12" transform="translate(306, 132.6) rotate(18) translate(-306, -132.6)" cx="306" cy="132.6" rx="40" ry="62"></ellipse>
+                    <path d="M366,217.6 C416,247.6 436,297.6 441,357.6" id="Path" stroke="#5A3F70" stroke-width="6" opacity="0.28" stroke-linecap="round"></path>
+                    <path d="M416,179.6 C456,207.6 481,247.6 488,307.6" id="Path" stroke="#5A3F70" stroke-width="6" opacity="0.22" stroke-linecap="round"></path>
+                    <ellipse id="Oval" fill="#FF8FB0" opacity="0.38" cx="226" cy="229.6" rx="20" ry="12"></ellipse>
+                    <ellipse id="Oval" fill="#FFFFFF" cx="267" cy="185.6" rx="40" ry="42"></ellipse>
+                    <circle id="Oval" fill="#111111" cx="260" cy="187.6" r="28"></circle>
+                    <circle id="Oval" fill="#FFFFFF" cx="252" cy="177.6" r="8.5"></circle>
+                    <circle id="Oval" fill="#FFFFFF" opacity="0.8" cx="270" cy="197.6" r="3.5"></circle>
+                    <path d="M224,149.6 C250.666667,132.266667 277.333333,130.266667 304,143.6" id="Path" stroke="#2B1E3A" stroke-width="10" stroke-linecap="round"></path>
+                    <path d="M192,233.6 C212,276.266667 238.666667,278.266667 272,239.6 L192,233.6 Z" id="Path" stroke="#000000" stroke-width="7" fill="#3A1D4E" stroke-linejoin="round"></path>
+                    <path d="M200,239.6 C218.666667,247.6 239.333333,248.266667 262,241.6 C255.333333,249.6 244,254.266667 228,255.6 C213.333333,252.933333 204,247.6 200,239.6 Z" id="Path" fill="#FFFFFF"></path>
+                    <ellipse id="Oval" fill="#FF7A8A" cx="234" cy="273.6" rx="15" ry="9"></ellipse>
+                    <polygon id="Path" stroke="#F2A900" stroke-width="2" fill="#FFD24A" stroke-linejoin="round" points="16 71.6 20.3 83.3 32 87.6 20.3 91.9 16 103.6 11.7 91.9 0 87.6 11.7 83.3"></polygon>
+                    <g transform="translate(615.856, 165.6021) rotate(32) translate(-615.856, -165.6021)translate(564.356, 115.1021)" id="Path">
+                        <polygon stroke="#F2A900" stroke-width="2" fill="#FFD24A" stroke-linejoin="round" points="89.5 74.6 93 84.1 102.5 87.6 93 91.1 89.5 100.6 86 91.1 76.5 87.6 86 84.1"></polygon>
+                        <line x1="4.9" y1="24.1" x2="0" y2="0.7" stroke="#FFB800" stroke-width="8" fill="#000000" stroke-linecap="round"></line>
+                        <line x1="31.7" y1="23.7" x2="35.8" y2="0" stroke="#FFB800" stroke-width="8" fill="#000000" stroke-linecap="round"></line>
+                        <line x1="56.6" y1="33.2" x2="69.3" y2="12.9" stroke="#FFB800" stroke-width="8" fill="#000000" stroke-linecap="round"></line>
+                    </g>
+                    <line x1="54.9" y1="33.2" x2="42.2" y2="12.9" id="Path" stroke="#FFB800" stroke-width="8" fill="#000000" stroke-linecap="round"></line>
+                    <line x1="79.8" y1="23.7" x2="75.7" y2="-2.84217094e-14" id="Path" stroke="#FFB800" stroke-width="8" fill="#000000" stroke-linecap="round"></line>
+                    <line x1="106.6" y1="24.1" x2="111.5" y2="0.7" id="Path" stroke="#FFB800" stroke-width="8" fill="#000000" stroke-linecap="round"></line>
+                </g>
+                <g transform="translate(129.5423, 140.5228) rotate(-11) translate(-129.5423, -140.5228)translate(34.0423, 32.0228)">
+                    <line x1="64.3865473" y1="207.543761" x2="38.3865473" y2="71.5437609" id="Path" stroke="#B98648" stroke-width="52" stroke-linecap="round"></line>
+                    <line x1="188.386547" y1="187.543761" x2="68.3865473" y2="207.543761" id="Path" stroke="#B98648" stroke-width="62" stroke-linecap="round"></line>
+                    <line x1="188.386547" y1="182.543761" x2="68.3865473" y2="202.543761" id="Path" stroke="#DCAB6B" stroke-width="62" stroke-linecap="round"></line>
+                    <line x1="68.3865473" y1="202.543761" x2="42.3865473" y2="66.5437609" id="Path" stroke="#DCAB6B" stroke-width="52" stroke-linecap="round"></line>
+                    <line x1="190.586547" y1="196.043761" x2="70.5865473" y2="216.043761" id="Path" stroke="#EDC891" stroke-width="12.4" opacity="0.55" stroke-linecap="round"></line>
+                    <ellipse id="Oval" fill="#B98648" transform="translate(121.4264, 165.7986) rotate(170.5) translate(-121.4264, -165.7986)" cx="121.426357" cy="165.798619" rx="40" ry="30"></ellipse>
+                    <ellipse id="Oval" fill="#DCAB6B" transform="translate(122.0865, 169.7438) rotate(170.5) translate(-122.0865, -169.7438)" cx="122.086547" cy="169.743761" rx="40" ry="30"></ellipse>
+                    <ellipse id="Oval" fill="#EDC891" opacity="0.6" transform="translate(114.4623, 154.3) rotate(170.5) translate(-114.4623, -154.3)" cx="114.462261" cy="154.299951" rx="18" ry="8.4"></ellipse>
+                    <g transform="translate(41, 41.3575) rotate(-100.8) translate(-41, -41.3575)translate(6, 7)">
+                        <ellipse id="Oval" fill="#B98648" cx="35" cy="35" rx="35" ry="31"></ellipse>
+                        <ellipse id="Oval" fill="#DCAB6B" cx="35" cy="31" rx="35" ry="31"></ellipse>
+                        <ellipse id="Oval" fill="#EDC891" opacity="0.55" cx="28" cy="22" rx="17" ry="10"></ellipse>
+                        <path d="M46,14 C52.6666667,14.6666667 59,16.6666667 65,20 M48,29 C56,29.6666667 63,31.3333333 69,34 M44,44 C50.6666667,45.3333333 56.6666667,47.3333333 62,50" id="Shape" stroke="#9A7648" stroke-width="4.5" stroke-linecap="round"></path>
+                        <ellipse id="Oval" stroke="#B98648" stroke-width="3" fill="#DCAB6B" transform="translate(20, 53) rotate(-18) translate(-20, -53)" cx="20" cy="53" rx="17" ry="11"></ellipse>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

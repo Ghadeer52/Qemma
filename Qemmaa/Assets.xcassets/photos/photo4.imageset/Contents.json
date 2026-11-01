@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "Pasted 1448-05-08 at 21408 PM 2_261031_215457.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
